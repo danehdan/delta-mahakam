@@ -60,7 +60,7 @@ export default function LandingPage() {
             <img 
               alt="Yayasan Delta Mahakam Logo" 
               className="w-10 h-10 object-contain drop-shadow-md hover:drop-shadow-[0_4px_12px_rgba(234,195,74,0.4)] hover:-translate-y-1 transition-all duration-300" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHNtn3W7E_cgo1J2o0F-EO5CrxfHf_ENJE6H3OOYlQHqDa8VwPGSx5xc8gTIdahQfpLmg5acIFWng8XVLx_-wcmpbK-x-H4VRhnbUnMkjrkDR6M8r4pLzcq4OIhCShcxVvm8ZPM9No39ytva2l19grY6hOOpCJCZCJMvIUwi96T_jIRq1kRcKLX85PRbyX-y7cXalNlI6R6O-N8eVAyuW60j6nL3vYzvDutIw3c6v81eeViPZRN2QPw0G7_H1g1uP-D8Yi2BvuZDw"
+              src="/icon.png"
             />
             <span className="hidden sm:inline font-bold">Yayasan Delta Mahakam</span>
             <span className="sm:hidden font-bold">YDM</span>
@@ -373,7 +373,7 @@ export default function LandingPage() {
             <img 
               alt="Yayasan Delta Mahakam Logo" 
               className="w-8 h-8 object-contain drop-shadow-md hover:drop-shadow-[0_4px_8px_rgba(234,195,74,0.3)] hover:-translate-y-1 transition-all duration-300" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHNtn3W7E_cgo1J2o0F-EO5CrxfHf_ENJE6H3OOYlQHqDa8VwPGSx5xc8gTIdahQfpLmg5acIFWng8XVLx_-wcmpbK-x-H4VRhnbUnMkjrkDR6M8r4pLzcq4OIhCShcxVvm8ZPM9No39ytva2l19grY6hOOpCJCZCJMvIUwi96T_jIRq1kRcKLX85PRbyX-y7cXalNlI6R6O-N8eVAyuW60j6nL3vYzvDutIw3c6v81eeViPZRN2QPw0G7_H1g1uP-D8Yi2BvuZDw"
+              src="/icon.png"
             />
             <span>Yayasan Delta Mahakam</span>
           </div>
