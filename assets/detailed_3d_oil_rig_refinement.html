@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+    #canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+    }
+</style>
+</head>
+<body>
+<div id="canvas-container"></div>
+<script>
+  // Setup Scene
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+  // Group for the entire oil rig
+  const rigGroup = new THREE.Group();
+
+  // Materials
+  const navyMat = new THREE.MeshStandardMaterial({ 
+    color: 0x0a1930, 
+    metalness: 0.7, 
+    roughness: 0.3 
+  });
+  const goldMat = new THREE.MeshStandardMaterial({ 
+    color: 0xffc107, 
+    metalness: 0.9, 
+    roughness: 0.2 
+  });
+  const lightMat = new THREE.MeshBasicMaterial({ color: 0xffea00 });
+
+  // 1. Main Platform
+  const baseWidth = 5;
+  const baseGeo = new THREE.BoxGeometry(baseWidth, 0.4, baseWidth);
+  const base = new THREE.Mesh(baseGeo, navyMat);
+  rigGroup.add(base);
+
+  // Platform Legs
+  for (let i = -1; i <= 1; i += 2) {
+    for (let j = -1; j <= 1; j += 2) {
+      const legGeo = new THREE.CylinderGeometry(0.3, 0.3, 6, 16);
+      const leg = new THREE.Mesh(legGeo, navyMat);
+      leg.position.set(i * 2.2, -3, j * 2.2);
+      rigGroup.add(leg);
+
+      // Lights at corners of main platform
+      const lightGeo = new THREE.SphereGeometry(0.1, 16, 16);
+      const light = new THREE.Mesh(lightGeo, lightMat);
+      light.position.set(i * 2.5, 0.3, j * 2.5);
+      rigGroup.add(light);
+    }
+  }
+
+  // 2. Secondary Platform Level
+  const secGeo = new THREE.BoxGeometry(3, 0.2, 3);
+  const sec = new THREE.Mesh(secGeo, navyMat);
+  sec.position.y = 1.5;
+  rigGroup.add(sec);
+
+  // Lights on secondary platform
+  for (let i = -1; i <= 1; i += 2) {
+    for (let j = -1; j <= 1; j += 2) {
+      const lightGeo = new THREE.SphereGeometry(0.08, 16, 16);
+      const light = new THREE.Mesh(lightGeo, lightMat);
+      light.position.set(i * 1.5, 1.65, j * 1.5);
+      rigGroup.add(light);
+    }
+  }
+
+  // 3. Helideck
+  const heliGroup = new THREE.Group();
+  const heliGeo = new THREE.CylinderGeometry(1.2, 1.2, 0.1, 32);
+  const helideck = new THREE.Mesh(heliGeo, navyMat);
+  heliGroup.add(helideck);
+  
+  // Helideck support beam
+  const supportGeo = new THREE.CylinderGeometry(0.1, 0.1, 2.5);
+  const support = new THREE.Mesh(supportGeo, navyMat);
+  support.position.set(-0.8, -1, 0);
+  support.rotation.z = Math.PI / 4;
+  heliGroup.add(support);
+  
+  heliGroup.position.set(3, 0.5, 0);
+  rigGroup.add(heliGroup);
+
+  // 4. Derrick Lattice Structure
+  const derrickHeight = 4.5;
+  const derrickGroup = new THREE.Group();
+  derrickGroup.position.y = 1.6; // Start above secondary platform
+
+  // Main vertical slanted beams
+  for (let i = -1; i <= 1; i += 2) {
+    for (let j = -1; j <= 1; j += 2) {
+      const beamGeo = new THREE.CylinderGeometry(0.04, 0.08, derrickHeight, 8);
+      const beam = new THREE.Mesh(beamGeo, goldMat);
+      beam.position.set(i * 0.4, derrickHeight / 2, j * 0.4);
+      beam.rotation.z = i * 0.08;
+      beam.rotation.x = -j * 0.08;
+      derrickGroup.add(beam);
+    }
+  }
+
+  // Horizontal truss rings
+  for (let y = 1; y <= 4; y++) {
+    const scale = 1 - (y * 0.15);
+    const ringWidth = 0.8 * scale;
+    const ringGeo = new THREE.BoxGeometry(ringWidth * 2, 0.05, ringWidth * 2);
+    const ring = new THREE.Mesh(ringGeo, goldMat);
+    ring.position.y = y * 0.9;
+    
+    // Wireframe for the lattice look
+    const edges = new THREE.EdgesGeometry(ringGeo);
+    const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffc107 }));
+    line.position.y = y * 0.9;
+    
+    derrickGroup.add(ring);
+  }
+  rigGroup.add(derrickGroup);
+
+  // 5. Drill Pipe
+  const pipeGeo = new THREE.CylinderGeometry(0.06, 0.06, 9, 16);
+  const pipe = new THREE.Mesh(pipeGeo, goldMat);
+  pipe.position.y = -2.5; // Center of the pipe
+  rigGroup.add(pipe);
+
+  scene.add(rigGroup);
+
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+  scene.add(ambientLight);
+
+  const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
+  dirLight1.position.set(10, 20, 10);
+  scene.add(dirLight1);
+
+  const dirLight2 = new THREE.DirectionalLight(0xffc107, 1);
+  dirLight2.position.set(-10, 5, -10);
+  scene.add(dirLight2);
+
+  const pointLight = new THREE.PointLight(0xffea00, 2, 10);
+  pointLight.position.set(0, 2, 0);
+  scene.add(pointLight);
+
+  // Camera Positioning
+  camera.position.set(8, 6, 9);
+  camera.lookAt(0, 0, 0);
+
+  // Animation Loop
+  function animate() {
+    requestAnimationFrame(animate);
+    rigGroup.rotation.y += 0.003;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Handle Resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+</script>
+</body></html>

@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Yayasan Delta Mahakam</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Montserrat:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ffb4ab",
+                      "inverse-on-surface": "#2b3040",
+                      "on-secondary-container": "#ffb7b8",
+                      "on-tertiary-fixed": "#241a00",
+                      "tertiary-fixed": "#ffe088",
+                      "on-tertiary-container": "#4f3e00",
+                      "tertiary": "#eac34a",
+                      "outline-variant": "#444650",
+                      "on-surface": "#dde2f6",
+                      "surface-container": "#1a1f2e",
+                      "surface-container-low": "#161b2a",
+                      "on-error-container": "#ffdad6",
+                      "secondary-fixed-dim": "#ffb3b4",
+                      "on-primary-fixed": "#00174a",
+                      "on-secondary-fixed-variant": "#920023",
+                      "background": "#0d1321",
+                      "surface-tint": "#b3c5ff",
+                      "inverse-primary": "#435b9f",
+                      "on-primary-container": "#758dd5",
+                      "on-tertiary": "#3c2f00",
+                      "error-container": "#93000a",
+                      "on-error": "#690005",
+                      "surface-dim": "#0d1321",
+                      "secondary-fixed": "#ffdad9",
+                      "surface-variant": "#2f3444",
+                      "primary-fixed-dim": "#b3c5ff",
+                      "on-secondary": "#680016",
+                      "primary": "#b3c5ff",
+                      "surface-container-high": "#242a39",
+                      "on-primary": "#0d2c6e",
+                      "secondary": "#ffb3b4",
+                      "surface-bright": "#333949",
+                      "surface-container-lowest": "#080e1c",
+                      "secondary-container": "#ac012c",
+                      "tertiary-container": "#cca830",
+                      "primary-container": "#002366",
+                      "surface-container-highest": "#2f3444",
+                      "on-tertiary-fixed-variant": "#574500",
+                      "on-background": "#dde2f6",
+                      "outline": "#8e909c",
+                      "surface": "#0d1321",
+                      "on-primary-fixed-variant": "#2a4386",
+                      "inverse-surface": "#dde2f6",
+                      "primary-fixed": "#dbe1ff",
+                      "tertiary-fixed-dim": "#e9c349",
+                      "on-surface-variant": "#c5c6d2",
+                      "on-secondary-fixed": "#40000a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "12px",
+                      "xs": "4px",
+                      "container-max": "1280px",
+                      "gutter": "24px",
+                      "lg": "48px",
+                      "md": "24px",
+                      "xl": "80px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Montserrat"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Montserrat"
+                      ],
+                      "headline-lg-mobile": [
+                              "Montserrat"
+                      ],
+                      "headline-xl": [
+                              "Montserrat"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-xl": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            scroll-behavior: smooth;
+        }
+
+        .glass-card {
+            background: rgba(5, 10, 24, 0.65);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            border-left: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .btn-primary-3d {
+            background-color: theme('colors.primary');
+            color: theme('colors.on-primary');
+            border-bottom: 2px solid theme('colors.primary-fixed-dim');
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-3d:hover {
+            box-shadow: 0 0 15px rgba(179, 197, 255, 0.4);
+            transform: translateY(1px);
+            border-bottom-width: 1px;
+        }
+
+        .btn-primary-3d:active {
+            transform: translateY(2px);
+            border-bottom-width: 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .icon-dual-tone {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .icon-dual-tone .material-symbols-outlined {
+            color: theme('colors.on-surface');
+            font-variation-settings: 'FILL' 0, 'wght' 300;
+        }
+        
+        .icon-dual-tone::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            background-color: theme('colors.tertiary');
+            border-radius: 50%;
+        }
+
+        .bri-card {
+            background: linear-gradient(135deg, theme('colors.surface-container-high') 0%, theme('colors.surface-container-lowest') 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bri-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .gold-chip {
+            width: 40px;
+            height: 30px;
+            background: linear-gradient(135deg, #e6c27a, #d4af37, #997a00);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 2px rgba(255,255,255,0.5);
+        }
+        
+        .gold-chip::after {
+            content: '';
+            position: absolute;
+            top: 50%; left: 0; right: 0;
+            height: 1px; background: rgba(0,0,0,0.2);
+        }
+        
+        .gold-chip::before {
+            content: '';
+            position: absolute;
+            left: 50%; top: 0; bottom: 0;
+            width: 1px; background: rgba(0,0,0,0.2);
+        }
+
+        .embossed-text {
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.2), -1px -1px 0 rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+        }
+
+        /* Nav active state */
+        .nav-active {
+            color: theme('colors.primary') !important;
+            font-weight: 700 !important;
+            border-bottom: 2px solid theme('colors.primary');
+            padding-bottom: 4px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+<!-- TopNavBar -->
+<nav class="bg-background/80 backdrop-blur-[20px] docked full-width top-0 sticky z-50 border-b border-tertiary/30 shadow-md">
+<div class="flex justify-between items-center w-full px-md max-w-container-max mx-auto py-sm">
+<div class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
+<img alt="Yayasan Delta Mahakam Logo" class="w-10 h-10 object-contain drop-shadow-md hover:drop-shadow-[0_4px_12px_rgba(234,195,74,0.4)] hover:-translate-y-1 transition-all duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHNtn3W7E_cgo1J2o0F-EO5CrxfHf_ENJE6H3OOYlQHqDa8VwPGSx5xc8gTIdahQfpLmg5acIFWng8XVLx_-wcmpbK-x-H4VRhnbUnMkjrkDR6M8r4pLzcq4OIhCShcxVvm8ZPM9No39ytva2l19grY6hOOpCJCZCJMvIUwi96T_jIRq1kRcKLX85PRbyX-y7cXalNlI6R6O-N8eVAyuW60j6nL3vYzvDutIw3c6v81eeViPZRN2QPw0G7_H1g1uP-D8Yi2BvuZDw"/>
+                Yayasan Delta Mahakam
+            </div>
+<div class="hidden md:flex gap-lg items-center">
+<a class="nav-active text-on-surface-variant font-label-md hover:text-primary transition-all duration-300" href="#home">Home</a>
+<a class="text-on-surface-variant font-label-md hover:text-primary transition-all duration-300" href="#about">About Us</a>
+<a class="text-on-surface-variant font-label-md hover:text-primary transition-all duration-300" href="#programs">Projects</a>
+<a class="text-on-surface-variant font-label-md hover:text-primary transition-all duration-300" href="#csr">CSR</a>
+<a class="text-on-surface-variant font-label-md hover:text-primary transition-all duration-300" href="#gallery">Gallery</a><a class="text-on-surface-variant font-label-md hover:text-primary transition-all duration-300" href="#partnerships">Partnerships</a>
+</div>
+<button class="hidden md:block btn-primary-3d px-6 py-2 rounded-lg font-label-md text-label-md">
+                Portal Access
+            </button>
+</div>
+</nav>
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex items-center pt-xl pb-xl overflow-hidden bg-background" id="home">
+<!-- Shader Background -->
+<div class="absolute inset-0 w-full h-full z-0 pointer-events-none">
+<canvas id="shader-canvas-ANIMATION_2" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_2');
+
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+varying vec2 v_texCoord;
+
+void main() {
+    vec2 uv = v_texCoord;
+    
+    // Create a deep navy gradient base
+    vec3 color1 = vec3(0.02, 0.04, 0.1); // Deep Navy
+    vec3 color2 = vec3(0.05, 0.08, 0.2); // Mid Navy
+    vec3 gold = vec3(0.83, 0.69, 0.22); // Gold
+    
+    // Moving "energy streaks"
+    float streaks = 0.0;
+    streaks += sin(uv.x * 10.0 + u_time * 0.5) * 0.5 + 0.5;
+    streaks *= cos(uv.y * 5.0 - u_time * 0.3) * 0.5 + 0.5;
+    
+    // Add noise-like gold flickers
+    float goldFlicker = pow(abs(sin(uv.x * 20.0 + uv.y * 20.0 + u_time)), 50.0) * 0.5;
+    
+    vec3 finalColor = mix(color1, color2, uv.y);
+    finalColor += gold * streaks * 0.05; // Subtle streaks
+    finalColor += gold * goldFlicker * 0.1; // Golden highlights
+    
+    gl_FragColor = vec4(finalColor, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<div class="max-w-container-max mx-auto px-md w-full grid grid-cols-1 md:grid-cols-12 gap-gutter relative z-10">
+<div class="md:col-span-7 flex flex-col justify-center">
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-md drop-shadow-lg">YAYASAN DELTA MAHAKAM</h1>
+<p class="font-body-lg text-body-lg text-on-surface mb-lg max-w-2xl drop-shadow-md">
+                    Membangun Kompetensi, Menciptakan Profesionalisme, Menuju Industri Energi Masa Depan.
+                </p>
+<div class="flex gap-4">
+<button class="btn-primary-3d px-8 py-3 rounded-lg font-label-md text-label-md flex items-center gap-2">
+                        Explore Programs <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="md:col-span-5 relative h-[400px] md:h-[600px] hidden md:block">
+<div class="absolute inset-0 w-full h-full drop-shadow-2xl" id="hero-rig-container"></div>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="py-xl bg-surface-container-low relative" id="about">
+<div class="max-w-container-max mx-auto px-md grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-5 relative">
+<div class="glass-card rounded-xl p-2 absolute -top-8 -left-8 z-20">
+<div class="flex items-center gap-2 bg-primary-container/50 px-4 py-2 rounded-lg border border-tertiary/20">
+<span class="material-symbols-outlined text-tertiary">workspace_premium</span>
+<span class="font-label-md text-label-md text-tertiary">Since 2012</span>
+</div>
+</div>
+<div class="aspect-square rounded-2xl overflow-hidden border border-outline-variant/30 relative z-10 bg-surface-container-high" data-alt="A professional industrial training facility viewed from slightly above, showing modern oil and gas simulation equipment in a spacious, well-lit workshop. The aesthetic is high-tech corporate with deep navy shadows and bright metallic highlights. The lighting emphasizes a clean, safe, and advanced educational environment suitable for the energy sector. Overall mood is serious, authoritative, and institutional." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAciB4c7n_QFypZ8X-J6C8P9oEd9pVdi_y5_mb5eRoSvUYLNKis4QYQyG7JZ9fLxHYW9rYPcueZ_iSSpgJy3IEkTZ6gr6XSKz0s0xz1n0wU-MQVG6XZ5DkhWMMDHqugtWOayRCxTQBIKIZPeaIjKZ_3veM_ESYAccO9zLd344Q0zVFbujhjNfe7OEum6XiQaxhkB-G3d_KVGYZ7evVs9kInngevpyGqiCQfAGYfvl-ULlaj-1QF1nr25_GcxmWjJvm2UxNRzkZOtws'); background-size: cover; background-position: center;">
+</div>
+</div>
+<div class="md:col-span-7 md:pl-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-md">Sejarah Singkat Yayasan Delta Mahakam</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                    Didirikan pada tahun 2012, Yayasan Delta Mahakam lahir dari komitmen kuat untuk menjembatani kesenjangan antara kebutuhan industri minyak dan gas bumi dengan ketersediaan sumber daya manusia yang kompeten di Indonesia.
+                </p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Kami berfokus pada pengembangan HR yang tersertifikasi, mengadopsi standar internasional, dan membekali tenaga kerja lokal dengan keterampilan teknis dan soft skill yang esensial untuk memimpin masa depan industri energi yang berkelanjutan.
+                </p>
+</div>
+</div>
+</section>
+<!-- Vision Mission Section -->
+<section class="py-xl bg-background relative overflow-hidden">
+<!-- Abstract background elements -->
+<div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px]"></div>
+<div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-tertiary/5 rounded-full blur-[120px]"></div>
+<div class="max-w-container-max mx-auto px-md relative z-10">
+<div class="text-center mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Visi &amp; Misi</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mx-auto">
+                    "Menjadi lembaga pendidikan dan pelatihan kerja perminyakan yang unggul, berstandar global, dan berkontribusi nyata pada kemandirian energi nasional."
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Mission 1 -->
+<div class="glass-card rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4 border border-tertiary/20">
+<span class="material-symbols-outlined text-tertiary">precision_manufacturing</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-[20px] mb-2">Kualitas Industri</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Menyediakan kurikulum yang selaras dengan standar operasi industri migas terkini.</p>
+</div>
+<!-- Mission 2 -->
+<div class="glass-card rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4 border border-tertiary/20">
+<span class="material-symbols-outlined text-tertiary">memory</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-[20px] mb-2">Teknologi Terkini</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Mengintegrasikan simulasi dan teknologi digital terbaru dalam proses pembelajaran.</p>
+</div>
+<!-- Mission 3 -->
+<div class="glass-card rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4 border border-tertiary/20">
+<span class="material-symbols-outlined text-tertiary">health_and_safety</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-[20px] mb-2">Budaya HSE</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Menanamkan prinsip Health, Safety, and Environment sebagai dasar setiap tindakan.</p>
+</div>
+<!-- Mission 4 -->
+<div class="glass-card rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4 border border-tertiary/20">
+<span class="material-symbols-outlined text-tertiary">handshake</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-[20px] mb-2">Kemitraan Industri</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Membangun sinergi kuat dengan perusahaan multinasional untuk penempatan kerja.</p>
+</div>
+<!-- Mission 5 -->
+<div class="glass-card rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4 border border-tertiary/20">
+<span class="material-symbols-outlined text-tertiary">verified</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-[20px] mb-2">Sertifikasi Kompetensi</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Memfasilitasi sertifikasi profesi yang diakui secara nasional maupun internasional.</p>
+</div>
+<!-- Mission 6 -->
+<div class="glass-card rounded-xl p-6 hover:-translate-y-2 transition-transform duration-300">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center mb-4 border border-tertiary/20">
+<span class="material-symbols-outlined text-tertiary">school</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-[20px] mb-2">Pengembangan SDM</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Memberikan kesempatan merata bagi putra-putri daerah untuk maju di sektor energi.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Education Programs -->
+<section class="py-xl bg-surface-container-low" id="programs">
+<div class="max-w-container-max mx-auto px-md">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-lg">Program Pendidikan</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="group relative bg-surface-container rounded-xl overflow-hidden border border-outline-variant/30 hover:border-primary/50 transition-colors duration-300">
+<div class="h-48 w-full bg-surface-container-high" data-alt="Close up of a heavy duty drill bit used in oil exploration, resting on an industrial platform. The setting features a cool blue metallic tint with subtle warm highlights reflecting off the machined steel. High contrast lighting enhances the mechanical complexity and prestige of the engineering equipment. Corporate, serious, and highly detailed visual aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCfC8pTcACmfFFwrCGI-_PSsrzszCaUB3TbfwVCu3IwOLqfEPIQTShigUPWQR5-vPD5io3uBR_NHIE9_2k0ALQV8TPGfAnZYEwaRskzfgWAVWm2m1cP8jYvfvoPgABV3kbo2vwA-ZFdLi8eSiPN7jCMLk2G3UVHgk0TvXtwVdYOQTBfdval76xUeGhE3qa9s3g_ZpK2hln1IBUHRCg4y2UpQmAiWwGPhoqzOcLI_RvAicrTJ57y61-_Py5YYp0aCo1SFC8p_OHPdqI'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-transparent to-transparent"></div>
+</div>
+<div class="p-6 relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-surface text-[22px] mb-2">Teknik Pengeboran</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">Pelatihan intensif operasi rig, mud engineering, dan well control.</p>
+<a class="text-primary font-label-md text-label-md flex items-center gap-1 group-hover:gap-2 transition-all" href="#">Details <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group relative bg-surface-container rounded-xl overflow-hidden border border-outline-variant/30 hover:border-tertiary/50 transition-colors duration-300">
+<div class="h-48 w-full bg-surface-container-high" data-alt="An industrial worker wearing a bright yellow hard hat and high-visibility safety vest inspecting a complex array of pipes and valves in a modern processing facility. Deep shadows contrast with bright safety colors. The atmosphere communicates strict compliance, safety, and high-tech industrial operations. Professional 3D corporate lighting style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeEIHA0-yw4LqE6S3kr_O-wCfxvfSekSpJUKvQ7fn9qXPxaGi6MDd3A4xEhKH6T1qg-pB4JoOAkWtDNf6WjMoXOmEfbJ6fE0fI_v3xmvXn8p3KYDN0_Siu9K6Jx-wHRt2lcmEBQrIG2SUTG8rzavsMGx0UaKBHSgYHFhrRdIALTAtmo15XqrTUU3E7x5kweXd1bnLCK0sZ4QPXdmrC8qAGHdcUIcs1bZTBBjIGHfXGL1plhF_Ihj6f6aAX1Yho8hlHM9OydzzyrsY'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-transparent to-transparent"></div>
+</div>
+<div class="p-6 relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-surface text-[22px] mb-2">HSE Migas</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">Sertifikasi keselamatan kerja spesifik untuk lingkungan operasional berisiko tinggi.</p>
+<a class="text-tertiary font-label-md text-label-md flex items-center gap-1 group-hover:gap-2 transition-all" href="#">Details <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group relative bg-surface-container rounded-xl overflow-hidden border border-outline-variant/30 hover:border-primary/50 transition-colors duration-300">
+<div class="h-48 w-full bg-surface-container-high" data-alt="Wide shot of an offshore oil platform at dusk, silhouetted against a deep blue and subtle orange sky. The rig is illuminated with structural lights, emphasizing its massive scale and complex engineering. The water is calm, reflecting the industrial lights. The mood is powerful, serene, and technologically advanced, fitting a high-end energy corporate brand." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDzRkwy08EhdrTuxoIpPoI6k04SiiitbsfazBOz2xpluDTtJCh0i9KG3iyJHlynfGJKYL5bVNodjl_O795OeAkxLFkdG52BqJ6pTjE950iqeZzY2m-Dyz6WRHGwGLloIGsL5OI4H7vR5iJkQ8PZZV_iAL8shpOODbpt7Uj-xwLtPd1FfifU8ySBly1jN8I6LYoeoCi5XjyxpDYTMlubW4wiIU6j_RRD18AyWWgfpNRRSpMF6CxJcys0gXeNtZMTlMaIz7S2AH03Dd0'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container via-transparent to-transparent"></div>
+</div>
+<div class="p-6 relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-surface text-[22px] mb-2">Produksi Migas</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-4">Manajemen fasilitas produksi, separasi fluida, dan operasi pemeliharaan.</p>
+<a class="text-primary font-label-md text-label-md flex items-center gap-1 group-hover:gap-2 transition-all" href="#">Details <span class="material-symbols-outlined text-[16px]">arrow_forward</span></a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Donation Section -->
+<section class="py-xl bg-surface-container-low relative overflow-hidden" id="gallery">
+<div class="absolute top-0 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="max-w-container-max mx-auto px-md relative z-10">
+<div class="mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Galeri Kegiatan</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+        Dokumentasi pelatihan, simulasi lapangan, dan kunjungan industri Yayasan Delta Mahakam.
+      </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="glass-card rounded-xl overflow-hidden border border-tertiary/20 aspect-video group">
+<div class="w-full h-full transition-transform duration-500 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCV9x4XtFrdGAhItwZNaOlbJo6S5TJ1mqSionPjHzmFPwCt7VyCPpEZrMztJNh9XkiMfje6JlMywhiyjdu1-VLgYCLIXmW5gamFJOItAJ_mIODUrnWWmPfAHgRU2HN4D8bO78mpgn9wwk8LWnGipe1am4rfhkTUXOtex-5RZLknCT7L15xjHF50_4GJw4gSrb6o2WaHsfWm1wzRpP-StJM3UuVuO1LVIPHT11SEBA3vXFPs1hME-pnrkrH0inxCBbY3qnJvI_CfHSY'); background-size: cover; background-position: center;"></div>
+</div>
+<div class="glass-card rounded-xl overflow-hidden border border-tertiary/20 aspect-square group">
+<div class="w-full h-full transition-transform duration-500 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC9AdTxwEFK0aC0PV1bzps6WzrM_2lVTF9nBmpNbnZZi0owmBN6qkkWeVRtgcdrHQ9SYqcRLyRfyC5xaPkh6dktrpsnzl3VgOv0WD3pasbyyymZqgKTfj7IR3QbfuKkFU6Z0eJWDS199Ipt3Y3_tG9tyzlVz6RC_zdT4gIUPQzj1sA3Ue2rhmeRSe3h5ITSTWeMYq3LKCd4Fmfc2o4zTU6ahjs8_Z-a7WkiA_H43TiUVt5qgd37U2YTfSW5rBTa4EXv7PoKYLI8xto'); background-size: cover; background-position: center;"></div>
+</div>
+<div class="glass-card rounded-xl overflow-hidden border border-tertiary/20 aspect-video group">
+<div class="w-full h-full transition-transform duration-500 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCV5MihcA_JEhOGLKSwi5H0giTIqn0vYWhYqjvU4RBOyWjEFaO5kWCHuHUR0vW34BP9__NFZtMwMgMV80eV2JfSKUkefnVo_FbsYfD-k51oFasH-s0iIL_AsEJdGi5J9aS3Bzh0N6Ed7Rvr2sIahI2s_o2ETQxR2NIIIf1L9Bd_zMdx2auLFKuum_NzlcdWSv1kvgYn_Xwz8lvjc5r9dmQLJr60qU_aUnK6-xN0x1d1pt4O1bDtZA0jXEobG2BOy6_ff4tZNypRl3w'); background-size: cover; background-position: center;"></div>
+</div>
+<div class="glass-card rounded-xl overflow-hidden border border-tertiary/20 aspect-square group">
+<div class="w-full h-full transition-transform duration-500 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCb4jx1Qo0bePKWLZgq-zSND1ZhZyLr27IhDEANwgDlstvAiIabIzWaCLYiokYbMJCAenPsIRQRtKDwNPSKxVbA44R_EzOi-f7FMVOP35Q0nlOLGwFJlsHsyK-1Qb83rN2ORVdOsuPvX1yoIRv_NVKJLSsr_QvrAchB-9AiC0E0foKAIw9pQSst4wGVeVIFPxco1ocBc0WxypLPmmAkv41GZ6NvQO__W5-VRiWNGDONYSsZ0naM_r9OkysQ69kvn4uFwuHMkxW8PWo'); background-size: cover; background-position: center;"></div>
+</div>
+<div class="glass-card rounded-xl overflow-hidden border border-tertiary/20 aspect-video group">
+<div class="w-full h-full transition-transform duration-500 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDZWV5tcEcNxEIsq8DHTMQhR5jRMvuLD8YcirttDBaj8O8AwfKMY1t_kYtBPMfwNxnh5dytGs-4JtosmZZ7QuAio8suPLn-Nb8lPqSiSVrAU_tMZ1Nmav3sklYs7KsDm4tbg4nqFceU2Le1HkMdjve4p2zZiHzp4VDIaZroCYQ9HURREpolD7RI0yZn1DHei3VdPWcvcngF71zZYWhYpG5xk8u0MINmsoBN5FaEvhMBWUmiDEVkUiiuG1vBzfBzn7FA0UljQg3eqwE'); background-size: cover; background-position: center;"></div>
+</div>
+<div class="glass-card rounded-xl overflow-hidden border border-tertiary/20 aspect-square group">
+<div class="w-full h-full transition-transform duration-500 group-hover:scale-110" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBptabzceiH_kXT-mNV2H3Qy6yoXoEBxIgDh7GY9DosK-m2IQAmbAHPBcubxzQHzZYyPrtCMEKBnpfwbx5TEo_zuXlinNvjQXtfDRZdmWDUF3G8_vBDekjc4P_iio-jbHaw_S-9C7ybQnljbzkURt8yCKzUb5MFrqCD-8TxoxFTW7R2wgD94yUM79GXgzupAvAxeGbNOfipoVfLYB4vC-8bReD1Z_3OmXZFsWl-gMvpdOU6HRjX-GOnleTppWqqhfmxYEHYPw3pzQA'); background-size: cover; background-position: center;"></div>
+</div>
+</div>
+</div>
+</section><section class="py-xl bg-background" id="partnerships">
+<div class="max-w-container-max mx-auto px-md grid grid-cols-1 md:grid-cols-2 gap-xl items-center">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-4">Dukungan Pendidikan</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                    Kami percaya bahwa pendidikan berkualitas harus dapat diakses oleh semua pihak. Dukungan Anda membantu memfasilitasi beasiswa dan pelatihan bagi siswa kurang mampu yang berpotensi memimpin industri energi di masa depan.
+                </p>
+<div class="flex items-center gap-4 text-tertiary mb-8">
+<span class="material-symbols-outlined text-[32px]">verified_user</span>
+<span class="font-label-md text-label-md">Trusted Institutional Partner</span>
+</div>
+</div>
+<!-- BRI Bank Card Component -->
+<div class="flex justify-center md:justify-end perspective-1000">
+<div class="bri-card w-full max-w-[420px] h-[260px] rounded-2xl p-6 shadow-2xl transform transition-transform duration-500 hover:rotate-y-12 hover:rotate-x-12">
+<div class="flex justify-between items-start mb-8">
+<div class="font-headline-md text-headline-md font-bold text-white tracking-wider">BRI</div>
+<div class="text-white/80 font-label-md text-[10px] uppercase border border-white/30 px-2 py-1 rounded">Corporate</div>
+</div>
+<div class="gold-chip mb-6"></div>
+<div class="font-headline-lg text-[24px] text-white/90 font-mono tracking-[0.15em] mb-4 embossed-text">
+                        0630 01 001914 56 4
+                    </div>
+<div class="flex justify-between items-end">
+<div>
+<div class="text-white/50 text-[10px] uppercase mb-1">Account Holder</div>
+<div class="font-headline-sm text-white/90 uppercase tracking-widest text-sm embossed-text">
+                                YAYASAN DELTA MAHAKAM
+                            </div>
+</div>
+<div class="text-tertiary">
+<svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.5" viewbox="0 0 24 24">
+<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.64-2.25 1.64-1.74 0-2.33-.89-2.41-1.76H7.73c.09 1.66 1.16 2.82 3.17 3.22V19h2.36v-1.62c1.69-.32 2.91-1.39 2.91-3.04 0-2.36-1.92-2.92-3.86-3.2z"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest full-width border-t border-tertiary/20">
+<div class="max-w-container-max mx-auto px-md py-lg flex flex-col md:flex-row justify-between items-start gap-md">
+<div class="font-headline-sm text-headline-sm font-bold text-tertiary flex items-center gap-2">
+<img alt="Yayasan Delta Mahakam Logo" class="w-8 h-8 object-contain drop-shadow-md hover:drop-shadow-[0_4px_8px_rgba(234,195,74,0.3)] hover:-translate-y-1 transition-all duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHNtn3W7E_cgo1J2o0F-EO5CrxfHf_ENJE6H3OOYlQHqDa8VwPGSx5xc8gTIdahQfpLmg5acIFWng8XVLx_-wcmpbK-x-H4VRhnbUnMkjrkDR6M8r4pLzcq4OIhCShcxVvm8ZPM9No39ytva2l19grY6hOOpCJCZCJMvIUwi96T_jIRq1kRcKLX85PRbyX-y7cXalNlI6R6O-N8eVAyuW60j6nL3vYzvDutIw3c6v81eeViPZRN2QPw0G7_H1g1uP-D8Yi2BvuZDw"/>
+                Yayasan Delta Mahakam
+            </div>
+<div class="flex flex-col items-start md:items-end gap-4">
+<div class="flex flex-wrap gap-4 md:gap-6 justify-start md:justify-end">
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-tertiary-fixed-dim transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-tertiary-fixed-dim transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-tertiary-fixed-dim transition-colors" href="#">Compliance</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-tertiary-fixed-dim transition-colors" href="#">Sustainability</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:text-tertiary-fixed-dim transition-colors" href="#">Contact Support</a>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant text-sm">
+                    © 2024 Yayasan Delta Mahakam. Industrial Excellence &amp; Academic Progress.
+                </div>
+</div>
+</div>
+</footer>
+<script>
+        // Simple vanilla JS for nav active state on scroll (rough implementation)
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('nav-active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('nav-active');
+                }
+            });
+        });
+    </script>
+<script>
+  // Setup Scene for Hero Rig
+  const container = document.getElementById('hero-rig-container');
+  if(container) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+
+      // Group for the entire oil rig
+      const rigGroup = new THREE.Group();
+
+      // Materials
+      const navyMat = new THREE.MeshStandardMaterial({ 
+        color: 0x0a1930, 
+        metalness: 0.7, 
+        roughness: 0.3 
+      });
+      const goldMat = new THREE.MeshStandardMaterial({ 
+        color: 0xffc107, 
+        metalness: 0.9, 
+        roughness: 0.2 
+      });
+      const lightMat = new THREE.MeshBasicMaterial({ color: 0xffea00 });
+
+      // 1. Main Platform
+      const baseWidth = 5;
+      const baseGeo = new THREE.BoxGeometry(baseWidth, 0.4, baseWidth);
+      const base = new THREE.Mesh(baseGeo, navyMat);
+      rigGroup.add(base);
+
+      // Platform Legs
+      for (let i = -1; i <= 1; i += 2) {
+        for (let j = -1; j <= 1; j += 2) {
+          const legGeo = new THREE.CylinderGeometry(0.3, 0.3, 6, 16);
+          const leg = new THREE.Mesh(legGeo, navyMat);
+          leg.position.set(i * 2.2, -3, j * 2.2);
+          rigGroup.add(leg);
+
+          // Lights at corners of main platform
+          const lightGeo = new THREE.SphereGeometry(0.1, 16, 16);
+          const light = new THREE.Mesh(lightGeo, lightMat);
+          light.position.set(i * 2.5, 0.3, j * 2.5);
+          rigGroup.add(light);
+        }
+      }
+
+      // 2. Secondary Platform Level
+      const secGeo = new THREE.BoxGeometry(3, 0.2, 3);
+      const sec = new THREE.Mesh(secGeo, navyMat);
+      sec.position.y = 1.5;
+      rigGroup.add(sec);
+
+      // Lights on secondary platform
+      for (let i = -1; i <= 1; i += 2) {
+        for (let j = -1; j <= 1; j += 2) {
+          const lightGeo = new THREE.SphereGeometry(0.08, 16, 16);
+          const light = new THREE.Mesh(lightGeo, lightMat);
+          light.position.set(i * 1.5, 1.65, j * 1.5);
+          rigGroup.add(light);
+        }
+      }
+
+      // 3. Helideck
+      const heliGroup = new THREE.Group();
+      const heliGeo = new THREE.CylinderGeometry(1.2, 1.2, 0.1, 32);
+      const helideck = new THREE.Mesh(heliGeo, navyMat);
+      heliGroup.add(helideck);
+      
+      // Helideck support beam
+      const supportGeo = new THREE.CylinderGeometry(0.1, 0.1, 2.5);
+      const support = new THREE.Mesh(supportGeo, navyMat);
+      support.position.set(-0.8, -1, 0);
+      support.rotation.z = Math.PI / 4;
+      heliGroup.add(support);
+      
+      heliGroup.position.set(3, 0.5, 0);
+      rigGroup.add(heliGroup);
+
+      // 4. Derrick Lattice Structure
+      const derrickHeight = 4.5;
+      const derrickGroup = new THREE.Group();
+      derrickGroup.position.y = 1.6; // Start above secondary platform
+
+      // Main vertical slanted beams
+      for (let i = -1; i <= 1; i += 2) {
+        for (let j = -1; j <= 1; j += 2) {
+          const beamGeo = new THREE.CylinderGeometry(0.04, 0.08, derrickHeight, 8);
+          const beam = new THREE.Mesh(beamGeo, goldMat);
+          beam.position.set(i * 0.4, derrickHeight / 2, j * 0.4);
+          beam.rotation.z = i * 0.08;
+          beam.rotation.x = -j * 0.08;
+          derrickGroup.add(beam);
+        }
+      }
+
+      // Horizontal truss rings
+      for (let y = 1; y <= 4; y++) {
+        const scale = 1 - (y * 0.15);
+        const ringWidth = 0.8 * scale;
+        const ringGeo = new THREE.BoxGeometry(ringWidth * 2, 0.05, ringWidth * 2);
+        const ring = new THREE.Mesh(ringGeo, goldMat);
+        ring.position.y = y * 0.9;
+        
+        // Wireframe for the lattice look
+        const edges = new THREE.EdgesGeometry(ringGeo);
+        const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffc107 }));
+        line.position.y = y * 0.9;
+        
+        derrickGroup.add(ring);
+      }
+      rigGroup.add(derrickGroup);
+
+      // 5. Drill Pipe
+      const pipeGeo = new THREE.CylinderGeometry(0.06, 0.06, 9, 16);
+      const pipe = new THREE.Mesh(pipeGeo, goldMat);
+      pipe.position.y = -2.5; // Center of the pipe
+      rigGroup.add(pipe);
+
+      scene.add(rigGroup);
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+      scene.add(ambientLight);
+
+      const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.5);
+      dirLight1.position.set(10, 20, 10);
+      scene.add(dirLight1);
+
+      const dirLight2 = new THREE.DirectionalLight(0xffc107, 1);
+      dirLight2.position.set(-10, 5, -10);
+      scene.add(dirLight2);
+
+      const pointLight = new THREE.PointLight(0xffea00, 2, 10);
+      pointLight.position.set(0, 2, 0);
+      scene.add(pointLight);
+
+      // Camera Positioning
+      camera.position.set(8, 6, 9);
+      camera.lookAt(0, 0, 0);
+
+      // Animation Loop
+      function animate() {
+        requestAnimationFrame(animate);
+        rigGroup.rotation.y += 0.003;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      // Handle Resize
+      window.addEventListener('resize', () => {
+        if(container) {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+      });
+  }
+</script>
+</body></html>

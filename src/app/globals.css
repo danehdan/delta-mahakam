@@ -1,0 +1,163 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-montserrat);
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  
+  --color-tertiary: var(--tertiary);
+  --color-tertiary-foreground: var(--tertiary-foreground);
+  
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-surface: var(--surface);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+}
+
+:root, .dark {
+  --background: #0d1321;
+  --foreground: #dde2f6;
+  
+  --primary: #b3c5ff;
+  --primary-foreground: #0d2c6e;
+  
+  --secondary: #ffb3b4;
+  --secondary-foreground: #680016;
+  
+  --tertiary: #eac34a;
+  --tertiary-foreground: #3c2f00;
+
+  --surface: #0d1321;
+  --surface-dim: #0d1321;
+  --surface-bright: #333949;
+  --surface-container-lowest: #080e1c;
+  --surface-container-low: #161b2a;
+  --surface-container: #1a1f2e;
+  --surface-container-high: #242a39;
+  --surface-container-highest: #2f3444;
+  --on-surface: #dde2f6;
+  --on-surface-variant: #c5c6d2;
+
+  --border: rgba(212, 175, 55, 0.2);
+  --input: rgba(212, 175, 55, 0.3);
+  --ring: #b3c5ff;
+  
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    scroll-behavior: smooth;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+/* Custom Design System Classes */
+.glass-card {
+  background: rgba(5, 10, 24, 0.65);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  border-left: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.btn-primary-3d {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-bottom: 2px solid #758dd5;
+  transition: all 0.3s ease;
+}
+
+.btn-primary-3d:hover {
+  box-shadow: 0 0 15px rgba(179, 197, 255, 0.4);
+  transform: translateY(1px);
+  border-bottom-width: 1px;
+}
+
+.btn-primary-3d:active {
+  transform: translateY(2px);
+  border-bottom-width: 0;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.icon-dual-tone {
+  position: relative;
+  display: inline-block;
+}
+
+.bri-card {
+  background: linear-gradient(135deg, var(--surface-container-high) 0%, var(--surface-container-lowest) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.bri-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(circle at 100% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.gold-chip {
+  width: 40px;
+  height: 30px;
+  background: linear-gradient(135deg, #e6c27a, #d4af37, #997a00);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 2px rgba(255,255,255,0.5);
+}
+
+.gold-chip::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  height: 1px; background: rgba(0,0,0,0.2);
+}
+
+.gold-chip::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 0; bottom: 0;
+  width: 1px; background: rgba(0,0,0,0.2);
+}
+
+.embossed-text {
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.2), -1px -1px 0 rgba(0,0,0,0.8);
+  letter-spacing: 2px;
+}
+
+.nav-active {
+  color: var(--primary) !important;
+  font-weight: 700 !important;
+  border-bottom: 2px solid var(--primary);
+  padding-bottom: 4px;
+}
