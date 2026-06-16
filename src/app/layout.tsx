@@ -15,15 +15,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Yayasan Delta Mahakam - Portal Energi 3D",
+  title: "Yayasan Delta Mahakam - Portal Energ",
   description: "Membangun Kompetensi, Menciptakan Profesionalisme, Menuju Industri Energi Masa Depan.",
 };
 
 export default function RootLayout({
   children,
-  }: Readonly<{
-    children: React.ReactNode;
-  }>) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html
       lang="id"
