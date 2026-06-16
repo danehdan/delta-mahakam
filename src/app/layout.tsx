@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Yayasan Delta Mahakam - Portal Energ",
+  title: "Yayasan Delta Mahakam - Portal Energi",
   description: "Membangun Kompetensi, Menciptakan Profesionalisme, Menuju Industri Energi Masa Depan.",
 };
 

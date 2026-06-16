@@ -82,9 +82,14 @@ export default function LandingPage() {
           </div>
 
           <div className="hidden md:block">
-            <button className="btn-primary-3d px-6 py-2 rounded-lg font-semibold text-sm cursor-pointer">
+            <a 
+              href="https://petroleum-course.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn-primary-3d px-6 py-2 rounded-lg font-semibold text-sm cursor-pointer inline-block"
+            >
               Portal Akses
-            </button>
+            </a>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -110,9 +115,14 @@ export default function LandingPage() {
                 {sec === "partnerships" ? "Dukungan" : sec === "programs" ? "Program" : sec === "gallery" ? "Galeri" : sec}
               </button>
             ))}
-            <button className="btn-primary-3d w-full py-2.5 rounded-lg font-semibold text-sm mt-2">
+            <a 
+              href="https://petroleum-course.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn-primary-3d w-full py-2.5 rounded-lg font-semibold text-sm mt-2 block text-center"
+            >
               Portal Akses
-            </button>
+            </a>
           </div>
         )}
       </nav>
